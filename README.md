@@ -4,6 +4,12 @@
 
 **PyWechat** use `flask` & `requests` to build micro-service.  
 
+- dependencies
+  - flask
+  - requests
+  - simplejson
+  - yaml
+
 ## Quick Start
 
 ```shell
@@ -30,4 +36,5 @@ python index.py
 ```
 
 - Already feature:
+  - add fruit notice feature, input '1月'~'12月', then push "fruitlist" back.
   - if service has received text message:"你好", then push "you too" back.
