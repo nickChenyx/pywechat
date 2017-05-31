@@ -20,13 +20,17 @@ def get_token():
     appid = 'wx1d2d32edd36367cc'
     appsecret = '536ac2c29e35f15225e84f7ff2b8ed2d'
     url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential\
-    &appid={0}&secret={1}'.format(appid, appsecret)
+&appid={0}&secret={1}'.format(appid, appsecret)
     # print('url: ',url)
     r = requests.get(url)
-    # print('===> HOLDING ACCESS TOKEN:\n',r.json(),'<===')
-    with open(path + '/wechat-token.tkn', 'w') as f:
-        f.write(r.json()['access_token'])
-    return r.json()['access_token']
+    if 'access_token' in r.json():
+        # print('===> HOLDING ACCESS TOKEN:\n',r.json(),'<===')
+        with open(path + '/wechat-token.tkn', 'w') as f:
+            f.write(r.json()['access_token'])
+        return r.json()['access_token']
+    else:
+        print(r.json())
+        return None
 
 
 def getlasttimefortoken():
@@ -68,6 +72,7 @@ def readtokenfile():
 def get():
     token = readtokenfile()
     if istimetogettoken():
+        print('prepare to get token')
         token = get_token()
     return token
 
